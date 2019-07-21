@@ -28,15 +28,12 @@ def apriori(inputPath,relativeMinSupport) :
     with open(inputPath) as f:
          for line in f:
             totalLineCount = totalLineCount + 1
-#             print "line --> ", line
-#             line = line.strip("\n\r")
-#             print "line --> ", line
+            line = line.rstrip()
             data = re.split(';', line)
             transactions.append(data)
             # print "data --> ", data
             for i,category in enumerate(data): 
-#                 print category
-                category = category.rstrip()
+#               print category
                 if category in frequentKItems:
                     count = frequentKItems[category]
                     count = count + 1
@@ -44,18 +41,53 @@ def apriori(inputPath,relativeMinSupport) :
                 else:
                     frequentKItems[category] = 1
 
-    print "Min Support:",int(totalLineCount * 0.01)
+    if relativeMinSupport is None :
+        relativeMinSupport = int(totalLineCount * 0.01)
+
+    print frequentKItems
+
+    print "Min Support:",relativeMinSupport
 
 #   Remove k=1 without min support
     for category in frequentKItems.keys():
         support = frequentKItems[category]
-        if support <= int(totalLineCount * 0.01):
+        if support <= relativeMinSupport:
             frequentKItems.pop(category, None)
 
-    #lookup is frequent-1 items
+    print frequentKItems
 
-    printFrequentItems(frequentKItems,"frequent1Items.txt")
+    # printFrequentItems(frequentKItems,"frequent1Items.txt")
 
+    frequen1Items = []
+    for aFreq1Itemcategory in frequentKItems.keys():
+        frequen1Items.append(aFreq1Itemcategory)
+
+    k=2
+    allKItemSetsToFind = getKItemCombinations(frequen1Items, k)
+
+
+def getKItemCombinations(frequen1Items, k):
+    x=1
+    allKItemSetsToFind = []
+    for i, category in enumerate(frequen1Items):
+        itemsToFind = []
+        itemsToFind.append(category)
+        for j, category2 in enumerate(frequen1Items):
+            if j > i:
+                x = x + 1
+                if x <= k:
+                    itemsToFind.append(category2)
+                    if x == k:
+                        if len(itemsToFind) == k:
+                            allKItemSetsToFind.append(itemsToFind)
+                            itemsToFind = []
+                            itemsToFind.append(category)
+                            x = 1
+        x = 1
+
+    print "k = ",k,"--> ",allKItemSetsToFind
+
+    return allKItemSetsToFind
 
 
 def printFrequentItems(printFrequentItems,fileName):
@@ -76,5 +108,6 @@ def printFrequentItems(printFrequentItems,fileName):
 # In[2]:
 
 
-apriori("categories.txt",1)
+# apriori("categories.txt",None)
+apriori("test_cats.txt",2)
 
