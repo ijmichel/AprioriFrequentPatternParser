@@ -22,7 +22,7 @@ from collections import OrderedDict
 def apriori(inputPath,relativeMinSupport) :
     
     transactions = [] # list of all transactions for use later
-    lookup = {}
+    frequentKItems = {}
     totalLineCount = 0
 
     with open(inputPath) as f:
@@ -37,32 +37,33 @@ def apriori(inputPath,relativeMinSupport) :
             for i,category in enumerate(data): 
 #                 print category
                 category = category.rstrip()
-                if category in lookup:
-                    count = lookup[category]
+                if category in frequentKItems:
+                    count = frequentKItems[category]
                     count = count + 1
-                    lookup[category] = count
+                    frequentKItems[category] = count
                 else:
-                    lookup[category] = 1 
+                    frequentKItems[category] = 1
 
     print "Min Support:",int(totalLineCount * 0.01)
 
 #   Remove k=1 without min support
-    for category in lookup.keys():
-        support = lookup[category]
+    for category in frequentKItems.keys():
+        support = frequentKItems[category]
         if support <= int(totalLineCount * 0.01):
-            lookup.pop(category, None)
+            frequentKItems.pop(category, None)
 
     #lookup is frequent-1 items
 
-    printFrequent1Items(lookup)
+    printFrequentItems(frequentKItems,"frequent1Items.txt")
 
 
-def printFrequent1Items(lookup):
-    if os.path.exists("patterns.txt"):
-        os.remove("patterns.txt")
-    f = open("patterns.txt", "a")
-    for category in lookup:
-        support = lookup[category]
+
+def printFrequentItems(printFrequentItems,fileName):
+    if os.path.exists(fileName):
+        os.remove(fileName)
+    f = open(fileName, "a")
+    for category in printFrequentItems:
+        support = printFrequentItems[category]
         category = category.replace("\n", "")
 
         toWrite = str(support) + ":" + category
