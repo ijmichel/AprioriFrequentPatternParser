@@ -33,9 +33,10 @@ def apriori(inputPath,relativeMinSupport) :
 #             print "line --> ", line
             data = re.split(';', line)
             transactions.append(data)
-#           print "data --> ", data
+            # print "data --> ", data
             for i,category in enumerate(data): 
 #                 print category
+                category = category.rstrip()
                 if category in lookup:
                     count = lookup[category]
                     count = count + 1
@@ -50,24 +51,25 @@ def apriori(inputPath,relativeMinSupport) :
         support = lookup[category]
         if support <= int(totalLineCount * 0.01):
             lookup.pop(category, None)
-    
+
+    #lookup is frequent-1 items
+
+    printFrequent1Items(lookup)
+
+
+def printFrequent1Items(lookup):
     if os.path.exists("patterns.txt"):
         os.remove("patterns.txt")
-   
     f = open("patterns.txt", "a")
-    
     for category in lookup:
         support = lookup[category]
-        category = category.replace("\n","")
-        
+        category = category.replace("\n", "")
+
         toWrite = str(support) + ":" + category
 
-        f.write(toWrite) 
+        f.write(toWrite)
         f.write("\n")
-
-
     f.close()
-            
 
 
 # In[2]:
