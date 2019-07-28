@@ -108,6 +108,9 @@ class ItemSet:
 def getKItemCombinations(frequen1Items, k):
     x=1
     allKItemSetsToFind = []
+    if isinstance(frequen1Items, ItemSet):
+        frequen1Items = frequen1Items.itemSet
+
     for i, category in enumerate(frequen1Items):
         itemsToFind = []
         itemsToFind.append(category)
