@@ -55,8 +55,8 @@ def apriori(inputPath,relativeMinSupport) :
 
     k = 2
     kItemSets = getKItemCombinations(frequen1Items, k)
-    trnxHaving = getTrxHavingkItemSets(kItemSets,relativeMinSupport,transactions)
-    print "trnx -->",trnxHaving
+    kFreqItemSets = getTrxHavingkItemSets(kItemSets,relativeMinSupport,transactions)
+    print "Freq k=2 -->",kFreqItemSets
 
 
 def filterItemSetByMinSupport(frequentKItems, relativeMinSupport):
@@ -76,11 +76,14 @@ def filterItemSetByMinSupport(frequentKItems, relativeMinSupport):
 def getTrxHavingkItemSets(kItemSets,relativeMinSupport,transactions):
     kItemSetToSupport = {}
     for itemSet in kItemSets:
+        aItemSet = itemSet
+        if isinstance(itemSet,ItemSet) :
+            aItemSet = itemSet.itemSet
         support = 0
         for trnx in transactions:
-            lToF = len(itemSet)
+            lToF = len(aItemSet)
             c = 0
-            for j,item in enumerate(itemSet):
+            for j,item in enumerate(aItemSet):
                 for i, category in enumerate(trnx):
                     if category == item:
                         c = c + 1
@@ -88,7 +91,7 @@ def getTrxHavingkItemSets(kItemSets,relativeMinSupport,transactions):
             if c==lToF: #found itemset in transaction
                 support = support + 1
 
-        itemSetCll = ItemSet(itemSet)
+        itemSetCll = ItemSet(aItemSet)
         kItemSetToSupport[itemSetCll] = support
 
     return filterItemSetByMinSupport(kItemSetToSupport,relativeMinSupport)
