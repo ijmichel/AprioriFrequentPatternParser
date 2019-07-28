@@ -19,6 +19,9 @@ from collections import OrderedDict
 # Step 3: 
 
 
+
+
+
 def apriori(inputPath,relativeMinSupport) :
     
     transactions = [] # list of all transactions for use later
@@ -48,22 +51,55 @@ def apriori(inputPath,relativeMinSupport) :
 
     print "Min Support:",relativeMinSupport
 
-#   Remove k=1 without min support
+    frequen1Items = filterItemSetByMinSupport(frequentKItems, relativeMinSupport)
+
+    k = 2
+    kItemSets = getKItemCombinations(frequen1Items, k)
+    trnxHaving = getTrxHavingkItemSets(kItemSets,relativeMinSupport,transactions)
+    print "trnx -->",trnxHaving
+
+
+def filterItemSetByMinSupport(frequentKItems, relativeMinSupport):
+    #   Remove k=1 without min support
     for category in frequentKItems.keys():
         support = frequentKItems[category]
         if support <= relativeMinSupport:
             frequentKItems.pop(category, None)
-
     print frequentKItems
-
     # printFrequentItems(frequentKItems,"frequent1Items.txt")
-
-    frequen1Items = []
+    frequenKItems = []
     for aFreq1Itemcategory in frequentKItems.keys():
-        frequen1Items.append(aFreq1Itemcategory)
+        frequenKItems.append(aFreq1Itemcategory)
+    return frequenKItems
 
-    k=2
-    allKItemSetsToFind = getKItemCombinations(frequen1Items, k)
+
+def getTrxHavingkItemSets(kItemSets,relativeMinSupport,transactions):
+    kItemSetToSupport = {}
+    for itemSet in kItemSets:
+        support = 0
+        for trnx in transactions:
+            lToF = len(itemSet)
+            c = 0
+            for j,item in enumerate(itemSet):
+                for i, category in enumerate(trnx):
+                    if category == item:
+                        c = c + 1
+
+            if c==lToF: #found itemset in transaction
+                support = support + 1
+
+        itemSetCll = ItemSet(itemSet)
+        kItemSetToSupport[itemSetCll] = support
+
+    return filterItemSetByMinSupport(kItemSetToSupport,relativeMinSupport)
+
+
+class ItemSet:
+    def __init__(self, itemSet):
+        self.itemSet = itemSet
+
+    def __repr__(self):
+        return str(self.itemSet)
 
 
 def getKItemCombinations(frequen1Items, k):
