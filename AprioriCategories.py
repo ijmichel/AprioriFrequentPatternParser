@@ -3,7 +3,7 @@ import os
 
 
 def apriori(inputPath,relativeMinSupport) :
-    
+
     transactions = [] # list of all transactions for use later
     frequentKItems = {}
     totalLineCount = 0
@@ -15,8 +15,7 @@ def apriori(inputPath,relativeMinSupport) :
             data = re.split(';', line)
             transactions.append(data)
             # print "data --> ", data
-            for i,category in enumerate(data): 
-#               print category
+            for i,category in enumerate(data):
                 if category in frequentKItems:
                     count = frequentKItems[category]
                     count = count + 1
@@ -27,34 +26,32 @@ def apriori(inputPath,relativeMinSupport) :
     if relativeMinSupport is None :
         relativeMinSupport = int(totalLineCount * 0.01)
 
-    print frequentKItems
+    # print frequentKItems
 
-    print "Min Support:",relativeMinSupport
+    # print "Min Support:",relativeMinSupport
 
-    allFreqItemSets = []
 
-    frequen1Items = filterItemSetByMinSupport(frequentKItems, relativeMinSupport)
+    frequentKItems = filterItemSetByMinSupport(frequentKItems, relativeMinSupport)
+    printFrequentItems(frequentKItems, "frequent1Items.txt")
+    frequen1Items = getFrequentLabels(frequentKItems)
 
-    allFreqItemSets.extend(frequen1Items)
 
     kItemSets = getKEquals1combinations(frequen1Items)
 
     k=2
     while True:
-        kFreqItemSets = getTrxHavingkItemSets(kItemSets,relativeMinSupport,transactions)
+        kItemsWithSupport = getKItemsWithSupport(kItemSets,transactions)
+        kFreqItemSets = filterItemSetByMinSupport(kItemsWithSupport,relativeMinSupport)
 
         if len(kFreqItemSets) == 0:
             break
         else:
-            allFreqItemSets.extend(kFreqItemSets)
+            printFrequentItems(kFreqItemSets, "frequentKItems.txt")
+            kFreqItemLabels = getFrequentLabels(kFreqItemSets)
 
-        print "Freq k= ",k,"->",kFreqItemSets
-
-        kItemSets = getNextItemCombinations(frequen1Items,kFreqItemSets)
-
+        kItemSets = getNextItemCombinations(frequen1Items,kFreqItemLabels)
         k = k + 1
 
-    print allFreqItemSets
 
 def getNextItemCombinations(frequen1Items, kFreqItemSets):
 
@@ -79,14 +76,17 @@ def filterItemSetByMinSupport(frequentKItems, relativeMinSupport):
         if support <= relativeMinSupport:
             frequentKItems.pop(category, None)
     print frequentKItems
-    # printFrequentItems(frequentKItems,"frequent1Items.txt")
+    return frequentKItems
+
+def getFrequentLabels(frequentKItems):
     frequenKItems = []
     for aFreq1Itemcategory in frequentKItems.keys():
         frequenKItems.append(aFreq1Itemcategory)
     return frequenKItems
 
 
-def getTrxHavingkItemSets(kItemSets,relativeMinSupport,transactions):
+
+def getKItemsWithSupport(kItemSets,transactions):
     kItemSetToSupport = {}
     for itemSet in kItemSets:
         aItemSet = itemSet
@@ -107,7 +107,7 @@ def getTrxHavingkItemSets(kItemSets,relativeMinSupport,transactions):
         itemSetCll = ItemSet(aItemSet)
         kItemSetToSupport[itemSetCll] = support
 
-    return filterItemSetByMinSupport(kItemSetToSupport,relativeMinSupport)
+    return kItemSetToSupport
 
 
 class ItemSet:
@@ -139,15 +139,18 @@ def getKEquals1combinations(frequen1Items):
                             x = 1
         x = 1
 
-    print "k = ",k,"--> ",allKItemSetsToFind
+    # print "k = ",k,"--> ",allKItemSetsToFind
 
     return allKItemSetsToFind
 
 
-def printFrequentItems(printFrequentItems,fileName):
+def printFrequentItems(printFrequentItems,fileName,f,close):
     if os.path.exists(fileName):
         os.remove(fileName)
-    f = open(fileName, "a")
+
+    if f is None:
+        f = open(fileName, "a")
+
     for category in printFrequentItems:
         support = printFrequentItems[category]
         category = category.replace("\n", "")
@@ -156,7 +159,9 @@ def printFrequentItems(printFrequentItems,fileName):
 
         f.write(toWrite)
         f.write("\n")
-    f.close()
+
+    if close:
+        f.close()
 
 
 # In[2]:
