@@ -1,25 +1,5 @@
-
-# coding: utf-8
-
-# In[1]:
-
-
-import sys
-import random 
-import threading
-import random
-import time
 import re
 import os
-
-from collections import OrderedDict
-
-# Step 1: Parse each line as a Transation with N elements which are split on ;
-# Step 2: While parsing convert a unique string to a number for easy sorting 
-# Step 3: 
-
-
-
 
 
 def apriori(inputPath,relativeMinSupport) :
@@ -51,12 +31,45 @@ def apriori(inputPath,relativeMinSupport) :
 
     print "Min Support:",relativeMinSupport
 
+    allFreqItemSets = []
+
     frequen1Items = filterItemSetByMinSupport(frequentKItems, relativeMinSupport)
 
-    k = 2
-    kItemSets = getKItemCombinations(frequen1Items, k)
-    kFreqItemSets = getTrxHavingkItemSets(kItemSets,relativeMinSupport,transactions)
-    print "Freq k=2 -->",kFreqItemSets
+    allFreqItemSets.extend(frequen1Items)
+
+    kItemSets = getKEquals1combinations(frequen1Items)
+
+    k=2
+    while True:
+        kFreqItemSets = getTrxHavingkItemSets(kItemSets,relativeMinSupport,transactions)
+
+        if len(kFreqItemSets) == 0:
+            break
+        else:
+            allFreqItemSets.extend(kFreqItemSets)
+
+        print "Freq k= ",k,"->",kFreqItemSets
+
+        kItemSets = getNextItemCombinations(frequen1Items,kFreqItemSets)
+
+        k = k + 1
+
+    print allFreqItemSets
+
+def getNextItemCombinations(frequen1Items, kFreqItemSets):
+
+    permutaitonsAll = []
+    for itemSetToCombine in kFreqItemSets:
+        permuationGo = []
+        toCombine = itemSetToCombine.itemSet
+        for oneItem in frequen1Items:
+            if not oneItem in toCombine:
+                permuationGo = toCombine[:]
+                permuationGo.append(oneItem)
+                permutaitonsAll.append(permuationGo)
+
+    return permutaitonsAll
+
 
 
 def filterItemSetByMinSupport(frequentKItems, relativeMinSupport):
@@ -105,11 +118,10 @@ class ItemSet:
         return str(self.itemSet)
 
 
-def getKItemCombinations(frequen1Items, k):
+def getKEquals1combinations(frequen1Items):
+    k=2
     x=1
     allKItemSetsToFind = []
-    if isinstance(frequen1Items, ItemSet):
-        frequen1Items = frequen1Items.itemSet
 
     for i, category in enumerate(frequen1Items):
         itemsToFind = []
