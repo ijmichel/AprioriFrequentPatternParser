@@ -112,6 +112,7 @@ def getKItemsWithSupport(kItemSets,transactions):
                 support = support + 1
 
         # print "before : " + str(aItemSet) + " after : " + str(sorted(aItemSet))
+        sorted(aItemSet)
         itemSetCll = ItemSet(aItemSet)
 
         if itemSetCll not in kItemSetToSupport:
@@ -126,9 +127,6 @@ class ItemSet:
 
     def __repr__(self):
         return str(self.itemSet)
-
-    def __hash__(self):
-        return hash((self.itemSet))
 
 
 def getKEquals1combinations(frequen1Items):

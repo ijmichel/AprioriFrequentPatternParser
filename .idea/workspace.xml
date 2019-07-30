@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AprioriCategories.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="151" column="31" lean-forward="true" selection-start-line="151" selection-start-column="31" selection-end-line="151" selection-end-column="31" />
+            <state relative-caret-position="127">
+              <caret line="114" column="31" selection-start-line="114" selection-start-column="31" selection-end-line="114" selection-end-column="31" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -28,8 +28,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frequentKItems.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret lean-forward="true" />
+            <state relative-caret-position="45">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -47,7 +47,7 @@
         <entry file="file://$USER_HOME$/Library/Caches/PyCharmCE2019.1/python_stubs/1527498693/__builtin__.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="184">
-              <caret line="2048" column="8" selection-start-line="2048" selection-start-column="8" selection-end-line="2048" selection-end-column="8" />
+              <caret line="529" column="4" selection-start-line="529" selection-start-column="4" selection-end-line="529" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -55,17 +55,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/patterns.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
+            <state relative-caret-position="214">
               <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/categories.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1155615">
-              <caret line="77041" column="2" selection-start-line="77041" selection-start-column="2" selection-end-line="77185" />
             </state>
           </provider>
         </entry>
@@ -84,9 +75,11 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>ItemSet</find>
-      <find>instance</find>
       <find>instane</find>
       <find>print</find>
+      <find>instance</find>
+      <find>ItemSet(</find>
+      <find>sorted</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -102,9 +95,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1678" />
     <option name="y" value="23" />
-    <option name="width" value="1524" />
+    <option name="width" value="1440" />
     <option name="height" value="837" />
   </component>
   <component name="ProjectView">
@@ -243,20 +235,34 @@
       <option name="project" value="LOCAL" />
       <updated>1564402816109</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="almost printing">
+      <created>1564404673705</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1564404673705</updated>
+    </task>
+    <task id="LOCAL-00010" summary="almost there">
+      <created>1564499743836</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1564499743836</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1440" y="23" width="1920" height="996" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="831" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17798841" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.23819591" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32964602" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30088496" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.33849558" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32882273" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.30040595" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.41407308" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -268,6 +274,25 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23819591" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32882273" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.30040595" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.41407308" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout-to-restore>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Convert to py instead of notebook" />
@@ -276,31 +301,26 @@
     <MESSAGE value="k items now" />
     <MESSAGE value="Update" />
     <MESSAGE value="without support" />
-    <option name="LAST_COMMIT_MESSAGE" value="without support" />
+    <MESSAGE value="almost printing" />
+    <MESSAGE value="almost there" />
+    <option name="LAST_COMMIT_MESSAGE" value="almost there" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AprioriCategories.py</url>
-          <line>43</line>
-          <option name="timeStamp" value="48" />
+          <line>114</line>
+          <option name="timeStamp" value="79" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/AprioriCategories.ipynb" />
-    <entry file="file://$PROJECT_DIR$/patterns.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/categories.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155615">
+        <state relative-caret-position="15">
           <caret line="77041" column="2" selection-start-line="77041" selection-start-column="2" selection-end-line="77185" />
         </state>
       </provider>
@@ -312,10 +332,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Library/Caches/PyCharmCE2019.1/python_stubs/1527498693/__builtin__.py">
+    <entry file="file://$PROJECT_DIR$/patterns.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="2048" column="8" selection-start-line="2048" selection-start-column="8" selection-end-line="2048" selection-end-column="8" />
+        <state relative-caret-position="214">
+          <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -328,15 +348,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frequentKItems.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharmCE2019.1/python_stubs/1527498693/__builtin__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="529" column="4" selection-start-line="529" selection-start-column="4" selection-end-line="529" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AprioriCategories.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="151" column="31" lean-forward="true" selection-start-line="151" selection-start-column="31" selection-end-line="151" selection-end-column="31" />
+        <state relative-caret-position="127">
+          <caret line="114" column="31" selection-start-line="114" selection-start-column="31" selection-end-line="114" selection-end-column="31" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
