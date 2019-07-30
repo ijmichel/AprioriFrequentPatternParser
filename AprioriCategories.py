@@ -30,9 +30,10 @@ def apriori(inputPath,relativeMinSupport) :
 
     # print "Min Support:",relativeMinSupport
 
+    f = None
 
     frequentKItems = filterItemSetByMinSupport(frequentKItems, relativeMinSupport)
-    printFrequentItems(frequentKItems, "frequent1Items.txt")
+    f = printFrequentItems(frequentKItems, "frequentKItems.txt",f,False,True)
     frequen1Items = getFrequentLabels(frequentKItems)
 
 
@@ -43,27 +44,33 @@ def apriori(inputPath,relativeMinSupport) :
         kItemsWithSupport = getKItemsWithSupport(kItemSets,transactions)
         kFreqItemSets = filterItemSetByMinSupport(kItemsWithSupport,relativeMinSupport)
 
+        # def printFrequentItems(printFrequentItems, fileName, f, close, removeFirst):
+
         if len(kFreqItemSets) == 0:
             break
         else:
-            printFrequentItems(kFreqItemSets, "frequentKItems.txt")
+            f = printFrequentItems(kFreqItemSets, "frequentKItems.txt",f,False,False)
             kFreqItemLabels = getFrequentLabels(kFreqItemSets)
 
         kItemSets = getNextItemCombinations(frequen1Items,kFreqItemLabels)
         k = k + 1
 
 
+    if f is not None:
+        f.close()
+
+
 def getNextItemCombinations(frequen1Items, kFreqItemSets):
 
-    permutaitonsAll = []
+    permutaitonsAll = ()
     for itemSetToCombine in kFreqItemSets:
-        permuationGo = []
+        permuationGo = ()
         toCombine = itemSetToCombine.itemSet
         for oneItem in frequen1Items:
             if not oneItem in toCombine:
                 permuationGo = toCombine[:]
-                permuationGo.append(oneItem)
-                permutaitonsAll.append(permuationGo)
+                permuationGo = permuationGo + (oneItem,)
+                permutaitonsAll = permutaitonsAll + (permuationGo,)
 
     return permutaitonsAll
 
@@ -79,9 +86,9 @@ def filterItemSetByMinSupport(frequentKItems, relativeMinSupport):
     return frequentKItems
 
 def getFrequentLabels(frequentKItems):
-    frequenKItems = []
+    frequenKItems = ()
     for aFreq1Itemcategory in frequentKItems.keys():
-        frequenKItems.append(aFreq1Itemcategory)
+        frequenKItems = frequenKItems + (aFreq1Itemcategory,)
     return frequenKItems
 
 
@@ -104,8 +111,11 @@ def getKItemsWithSupport(kItemSets,transactions):
             if c==lToF: #found itemset in transaction
                 support = support + 1
 
+        # print "before : " + str(aItemSet) + " after : " + str(sorted(aItemSet))
         itemSetCll = ItemSet(aItemSet)
-        kItemSetToSupport[itemSetCll] = support
+
+        if itemSetCll not in kItemSetToSupport:
+            kItemSetToSupport[itemSetCll] = support
 
     return kItemSetToSupport
 
@@ -117,25 +127,28 @@ class ItemSet:
     def __repr__(self):
         return str(self.itemSet)
 
+    def __hash__(self):
+        return hash((self.itemSet))
+
 
 def getKEquals1combinations(frequen1Items):
     k=2
     x=1
-    allKItemSetsToFind = []
+    allKItemSetsToFind = ()
 
     for i, category in enumerate(frequen1Items):
-        itemsToFind = []
-        itemsToFind.append(category)
+        itemsToFind = ()
+        itemsToFind = itemsToFind + (category,)
         for j, category2 in enumerate(frequen1Items):
             if j > i:
                 x = x + 1
                 if x <= k:
-                    itemsToFind.append(category2)
+                    itemsToFind = itemsToFind + (category2,)
                     if x == k:
                         if len(itemsToFind) == k:
-                            allKItemSetsToFind.append(itemsToFind)
-                            itemsToFind = []
-                            itemsToFind.append(category)
+                            allKItemSetsToFind = allKItemSetsToFind + (itemsToFind,)
+                            itemsToFind = ()
+                            itemsToFind = itemsToFind + (category,)
                             x = 1
         x = 1
 
@@ -144,18 +157,34 @@ def getKEquals1combinations(frequen1Items):
     return allKItemSetsToFind
 
 
-def printFrequentItems(printFrequentItems,fileName,f,close):
-    if os.path.exists(fileName):
-        os.remove(fileName)
+def printFrequentItems(printFrequentItems,fileName,f,close,deleteIt):
+
+    if deleteIt:
+        if os.path.exists(fileName):
+            os.remove(fileName)
 
     if f is None:
         f = open(fileName, "a")
 
     for category in printFrequentItems:
         support = printFrequentItems[category]
-        category = category.replace("\n", "")
+        toWrite = str(support) + ":"
 
-        toWrite = str(support) + ":" + category
+        if isinstance(category,ItemSet):
+            catList = category.itemSet
+            if isinstance(catList, tuple):
+                l = len(catList)
+                i=1
+                for aCat in catList:
+                    aCat = aCat.replace("\n", "")
+                    if i != l:
+                        toWrite = toWrite + aCat + ";"
+                    else:
+                        toWrite = toWrite + aCat
+                    i = i + 1
+        else:
+            category = category.replace("\n", "")
+            toWrite = toWrite + category
 
         f.write(toWrite)
         f.write("\n")
@@ -163,10 +192,12 @@ def printFrequentItems(printFrequentItems,fileName,f,close):
     if close:
         f.close()
 
+    return f
+
 
 # In[2]:
 
 
-# apriori("categories.txt",None)
+#apriori("categories.txt",None)
 apriori("test_cats.txt",2)
 
