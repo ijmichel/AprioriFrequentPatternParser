@@ -111,21 +111,15 @@ def getKItemsWithSupport(kItemSets,transactions):
             if c==lToF: #found itemset in transaction
                 support = support + 1
 
+        #Sort the tuple then make an ItemSet -- Eliminates dups!
         sortedIt = sorted(aItemSet)
         t = tuple(sortedIt)
+        newItem = ItemSet(t)
 
-        if not kItemSetToSupport.has_key(t):
-            kItemSetToSupport[t] = support
+        if not kItemSetToSupport.has_key(newItem):
+            kItemSetToSupport[newItem] = support
 
-    newkItemSetToSupport = {}
-    for y in kItemSetToSupport:
-        newKey = ItemSet(y)
-        oldSupport = kItemSetToSupport[y]
-        if not newkItemSetToSupport.has_key(newKey) :
-            newkItemSetToSupport[newKey] = oldSupport
-
-
-    return newkItemSetToSupport
+    return kItemSetToSupport
 
 
 class ItemSet:
@@ -134,6 +128,12 @@ class ItemSet:
 
     def __repr__(self):
         return str(self.itemSet)
+
+    def __hash__(self):
+        return hash(self.itemSet)
+
+    def __eq__(self, other):
+        return other.itemSet == self.itemSet
 
 
 def getKEquals1combinations(frequen1Items):
@@ -203,6 +203,6 @@ def printFrequentItems(printFrequentItems,fileName,f,close,deleteIt):
 # In[2]:
 
 
-#apriori("categories.txt",None)
-apriori("test_cats.txt",2)
+apriori("categories.txt",None)
+#apriori("test_cats.txt",2)
 
