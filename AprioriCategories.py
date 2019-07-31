@@ -111,14 +111,21 @@ def getKItemsWithSupport(kItemSets,transactions):
             if c==lToF: #found itemset in transaction
                 support = support + 1
 
-        # print "before : " + str(aItemSet) + " after : " + str(sorted(aItemSet))
-        sorted(aItemSet)
-        itemSetCll = ItemSet(aItemSet)
+        sortedIt = sorted(aItemSet)
+        t = tuple(sortedIt)
 
-        if itemSetCll not in kItemSetToSupport:
-            kItemSetToSupport[itemSetCll] = support
+        if not kItemSetToSupport.has_key(t):
+            kItemSetToSupport[t] = support
 
-    return kItemSetToSupport
+    newkItemSetToSupport = {}
+    for y in kItemSetToSupport:
+        newKey = ItemSet(y)
+        oldSupport = kItemSetToSupport[y]
+        if not newkItemSetToSupport.has_key(newKey) :
+            newkItemSetToSupport[newKey] = oldSupport
+
+
+    return newkItemSetToSupport
 
 
 class ItemSet:
